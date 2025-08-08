@@ -1,6 +1,7 @@
 # Ultra Arena for AIs
 
-A comprehensive document processing system that uses Large Language Models (LLMs) to extract structured information from various document types, with support for multiple processing strategies and providers.
+A comprehensive document processing system that uses Large Language Models (LLMs) to extract structured information from various document types, with support for multiple processing strategies and providers, along with a Monitor
+module to visualize the comparison for the performance of different LLMs.
 
 ## 🚀 Features
 
