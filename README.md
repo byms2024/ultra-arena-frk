@@ -1,16 +1,35 @@
 ## Ultra Arena
 
-### A unified platform to run text and file extraction against many LLMs — with a live monitor to compare cost and performance
+### A unified platform to run text and file based requests against many LLMs — with a live monitor to compare cost and performance
 
 Ultra Arena lets you process text- and file-based requests across multiple LLM providers and strategies, then visualize and compare their performance and costs side-by-side. It is designed for rapid iteration, fair benchmarking, and practical ops visibility.
 
 ## Highlights
-- **Multi-provider**: OpenAI, Google, Anthropic (Claude), DeepSeek, Hugging Face, and local (Ollama)
-- **Multiple strategies**: direct file, text-first, image-first, and hybrid
-- **Parallel execution**: run many files or prompts concurrently
-- **Cost & token tracking**: standardized counters and pricing lookup
-- **Live monitoring**: dashboard to compare results, costs, and throughput
-- **Extensible**: add new providers, models, or strategies easily
+- **🚀 Multi-provider**: OpenAI, Google, Anthropic (Claude), DeepSeek, Hugging Face, and local (Ollama)
+- **🧠 Multiple strategies**: direct file, text-first, image-first, and hybrid
+- **⚡ Parallel execution**: run many files or prompts concurrently
+- **💰 Cost & token tracking**: standardized counters and pricing lookup
+- **📊 Live monitoring**: dashboard to compare results, costs, and throughput
+- **🧩 Extensible**: add new providers, models, or strategies easily
+
+### How it works (at a glance)
+
+```mermaid
+graph LR
+  A["Requests\n(text, PDFs, images)"] --> B["Strategies\nDirect File | Text First | Image First | Hybrid"]
+  B --> C["Providers\nOpenAI | Google | Anthropic | DeepSeek | HF | Ollama"]
+  C --> D["Outputs\nCSV | JSON"]
+  D --> E["Monitor Backend\n(Flask)"]
+  E --> F["Dashboard\n(React)"]
+  G["Pricing + Token Counters"] --> C
+  style A fill:#eef,stroke:#99f
+  style B fill:#efe,stroke:#4a4
+  style C fill:#ffe,stroke:#cc4
+  style D fill:#fef,stroke:#c4c
+  style E fill:#eef,stroke:#88f
+  style F fill:#eef,stroke:#88f
+  style G fill:#fff8e6,stroke:#cc4
+```
 
 ## Repository layout
 - `Ultra_Arena_Main/`: core runner, strategies, providers, config, and processors
@@ -57,6 +76,29 @@ Open `http://localhost:8000` to view the dashboard.
 
 Note: The monitor backend also supports a single consolidated `modular_results.json` (it will load that file if present in the configured directory).
 
+### Execution modes (parallelism)
+
+```mermaid
+flowchart TB
+  subgraph Runner
+    direction TB
+    P["Parallel Mode"] -->|fan-out| W1[Worker 1]
+    P -->|fan-out| W2[Worker 2]
+    P -->|fan-out| WN[Worker N]
+    subgraph W1
+      direction TB
+      I1[Read file/prompt]
+      S1[Apply strategy]
+      L1[Call provider]
+      O1[Write CSV/JSON]
+      I1-->S1-->L1-->O1
+    end
+  end
+  O1 -. aggregated .-> MON[Monitor]
+  style Runner fill:#f6fff6,stroke:#4a4
+  style MON fill:#eef,stroke:#99f
+```
+
 ## Configure providers
 Set the corresponding environment variables before running:
 - **OpenAI**: `OPENAI_API_KEY`
@@ -71,6 +113,12 @@ Set the corresponding environment variables before running:
 - **Modes**: parallel, combo (batched parameter combinations)
 
 You can choose strategies and modes via the config files in `Ultra_Arena_Main/config/`.
+
+### Why Ultra Arena?
+- **🔁 Fair apples-to-apples**: run the same inputs across many models and strategies
+- **📈 Operational visibility**: token counts, costs, throughput, retries
+- **🛠️ Pragmatic**: easy to add providers/strategies; monitor is zero-build (Flask + static React)
+- **🏃 Fast iteration**: spin up experiments, compare, and decide quickly
 
 ## Extending
 - Add a new provider under `Ultra_Arena_Main/llm_client/providers/`
