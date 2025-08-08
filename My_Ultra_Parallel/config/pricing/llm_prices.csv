@@ -1,6 +1,0 @@
-llm_provider,llm_model,prompt_token_price_per_1M,candidate_token_price_per_1M,price_obtained_date
-openai,gpt-4.1,2.00,8.00,2025-08-04
-openai,gpt-4o-mini,0.15,0.60,2025-08-04
-google,gemini-2.5-flash,0.075,0.30,2025-08-04
-deepseek,deepseek-chat,0.14,0.28,2025-08-04
-claude,claude-sonnet-4-20250514,3.00,15.00,2025-08-04
