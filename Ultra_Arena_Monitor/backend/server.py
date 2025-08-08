@@ -26,7 +26,8 @@ logger = logging.getLogger(__name__)
 
 def get_json_directory():
     """Get the JSON data directory path"""
-    return Path(__file__).parent.parent / JSON_DATA_DIR
+    # JSON_DATA_DIR is relative to the repository root monitor package parent
+    return (Path(__file__).parent.parent / JSON_DATA_DIR).resolve()
 
 def get_file_modification_time(file_path):
     """Get the modification time of a file"""
@@ -70,7 +71,9 @@ def has_files_changed():
     return files_changed
 
 def load_json_files():
-    """Load all JSON files from the configured directory with caching"""
+    """Load all JSON files from the configured directory with caching.
+    Supports either a directory of JSONs or a single consolidated modular_results.json.
+    """
     global json_cache, last_modified_times
     
     json_dir = get_json_directory()
@@ -81,7 +84,11 @@ def load_json_files():
         return json_files
     
     with cache_lock:
-        for json_file in json_dir.glob("*.json"):
+        # If a consolidated file exists, load only that
+        consolidated = json_dir / "modular_results.json"
+        files_to_read = [consolidated] if consolidated.exists() else list(json_dir.glob("*.json"))
+
+        for json_file in files_to_read:
             try:
                 # Check if file has changed
                 current_mtime = get_file_modification_time(json_file)

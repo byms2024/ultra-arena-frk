@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Test call script to process a single German PDF file using My_Ultra_Parallel
+Test call script to process a single German PDF file using Ultra_Arena_Main
 """
 
 import sys
 import json
 from pathlib import Path
 
-# Add the My_Ultra_Parallel directory to the Python path
-sys.path.append(str(Path(__file__).parent.parent / "My_Ultra_Parallel"))
+# Add the Ultra_Arena_Main directory to the Python path
+sys.path.append(str(Path(__file__).parent.parent / "Ultra_Arena_Main"))
 
 from main_modular import run_file_processing_simple
 

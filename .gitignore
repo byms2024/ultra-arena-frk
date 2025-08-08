@@ -33,5 +33,5 @@ logs/
 .idea/
 
 # Project outputs
-My_Ultra_Parallel/output/
-My_Ultra_Example_Call/output/
+Ultra_Arena_Main/output/
+Ultra_Arena_Test_Example/output/
