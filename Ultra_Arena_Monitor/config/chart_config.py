@@ -22,7 +22,7 @@ except ImportError:
 # Directory containing JSON data files. Point this at where your JSON summaries live,
 # relative to the repository root (resolved from the monitor package root).
 # For the current repo, we have a consolidated JSON at Ultra_Arena_Test_Example/modular_results.json
-JSON_DATA_DIR = "Ultra_Arena_Test_Example"  # Directory containing JSON data files
+JSON_DATA_DIR = "../Ultra_Arena_Main/output/results/json"  # Directory containing JSON data files
 
 chart_config_all = {
     "chart_config_1": {
