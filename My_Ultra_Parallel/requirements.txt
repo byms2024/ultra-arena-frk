@@ -1,0 +1,45 @@
+# Core dependencies
+google-genai>=0.3.0
+openai>=1.0.0
+PyPDF2>=3.0.0
+pandas>=1.5.0
+openpyxl>=3.0.0
+
+# LLM Provider Dependencies
+anthropic>=0.7.0
+ollama>=0.1.0
+tiktoken>=0.5.0
+
+# PDF Processing Dependencies
+PyMuPDF>=1.23.0  # fitz module for PDF processing
+
+# Web Framework (for monitoring/dashboard)
+flask>=2.0.0
+
+# Text Processing
+regex>=2023.0.0  # Enhanced regex library
+fuzzywuzzy>=0.18.0  # Fuzzy string matching
+python-Levenshtein>=0.21.0  # Fast fuzzy string matching backend
+
+# OCR Dependencies
+pytesseract>=0.3.10  # Python wrapper for Tesseract OCR
+pdf2image>=1.16.0  # Convert PDF to images for OCR
+Pillow>=9.0.0  # Image processing for OCR
+
+# Async Support
+aiofiles>=23.0.0
+
+# Development and Testing Dependencies
+pytest>=7.0.0
+black>=22.0.0
+flake8>=5.0.0
+
+# Optional: Additional dependencies that might be useful
+# requests>=2.28.0  # For HTTP requests (if needed)
+# numpy>=1.21.0     # For numerical operations (if needed)
+# matplotlib>=3.5.0  # For plotting (if needed)
+# seaborn>=0.11.0   # For statistical plotting (if needed)
+
+# Note: If you see warnings about "Invalid version: '2.22.1ubuntu1'", 
+# this is a system package conflict and can be safely ignored.
+# It doesn't affect the functionality of this project. 
