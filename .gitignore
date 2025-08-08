@@ -32,6 +32,9 @@ logs/
 .vscode/
 .idea/
 
+# AI-generated artifacts
+cursor_gen/
+
 # Project outputs
 Ultra_Arena_Main/output/
 Ultra_Arena_Test_Example/output/
