@@ -10,8 +10,6 @@ for use as examples or tests with the top-level run_batch_processing() function.
 # BASE CONFIGURATION CONSTANTS (imported by other config files)
 # =============================================================================
 
-BENCHMARK_FILE_PATH = "benchmark/ref_files/xxxx.xlsx"
-
 # Provider Configuration
 PROVIDER_OPENAI = "openai"
 PROVIDER_GOOGLE = "google"
@@ -157,25 +155,79 @@ MODE_BATCH = "batch"
 # =============================================================================
 
 # Default processing settings
-DEFAULT_STRATEGY_TYPE = "direct_file"
-DEFAULT_MODE = "parallel"
+DEFAULT_STRATEGY_TYPE = STRATEGY_DIRECT_FILE
+DEFAULT_MODE = MODE_PARALLEL
 DEFAULT_MAX_WORKERS = 5
 DEFAULT_OUTPUT_FILE = "modular_results.json"
 DEFAULT_CHECKPOINT_FILE = "modular_checkpoint.pkl"
 DEFAULT_LLM_PROVIDER = "google"  # Default provider for all strategies
 
-# =============================================================================
-# PROMPTS (ONLY USED FOR EXAMPLES/TESTS WITH run_batch_processing())
-# =============================================================================
+PROFILE_ROOT_DIR = "run_profiles"
+DEFAULT_PROFILE_DIR = f"{PROFILE_ROOT_DIR}/default_profile"
+PROFILE_DIR = DEFAULT_PROFILE_DIR
 
-# System Prompt
-SYSTEM_PROMPT = """
+"""
+Profile-driven configuration
+- PROFILE_DIR determines which profile to load.
+- Values from the profile (e.g., OUTPUT_BASE_DIR, prompts, benchmark path) override defaults here.
 """
 
-# JSON Formatting Instructions (concatenated to main prompt)
-JSON_FORMAT_INSTRUCTIONS = """
-"""
+from pathlib import Path
+import importlib.util
 
-# User Prompt
-USER_PROMPT = """
-""" + JSON_FORMAT_INSTRUCTIONS 
+# Defaults (may be overridden by profile)
+BENCHMARK_FILE_PATH = ""
+SYSTEM_PROMPT = ""
+JSON_FORMAT_INSTRUCTIONS = ""
+USER_PROMPT = ""
+PROFILE_INPUT_DIR = ""
+
+def _load_profile_overrides() -> None:
+    try:
+        root_dir = Path(__file__).resolve().parent.parent  # Ultra_Arena_Main/
+        profile_cfg = root_dir / PROFILE_DIR / "profile_config.py"
+        if not profile_cfg.exists():
+            return
+        spec = importlib.util.spec_from_file_location("run_profile_config", str(profile_cfg))
+        if spec is None or spec.loader is None:
+            return
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        # Optional: input dir for convenience in runners
+        if hasattr(module, "INPUT_DIR"):
+            globals()["PROFILE_INPUT_DIR"] = getattr(module, "INPUT_DIR")
+
+        # Output base dir overrides and recompute structure
+        if hasattr(module, "OUTPUT_BASE_DIR"):
+            globals()["OUTPUT_BASE_DIR"] = getattr(module, "OUTPUT_BASE_DIR")
+            globals()["OUTPUT_RESULTS_DIR"] = f"{OUTPUT_BASE_DIR}/results"
+            globals()["OUTPUT_COMBO_DIR"] = f"{OUTPUT_RESULTS_DIR}/combo"
+            globals()["OUTPUT_COMBO_BACKUP_DIR"] = f"{OUTPUT_COMBO_DIR}/backup"
+            globals()["OUTPUT_COMBO_CSV_DIR"] = "csv"
+            globals()["OUTPUT_COMBO_JSON_DIR"] = "json"
+            globals()["OUTPUT_NON_COMBO_DIR"] = f"{OUTPUT_RESULTS_DIR}/non-combo"
+            globals()["OUTPUT_NON_COMBO_CSV_DIR"] = f"{OUTPUT_NON_COMBO_DIR}/csv"
+            globals()["OUTPUT_NON_COMBO_JSON_DIR"] = f"{OUTPUT_NON_COMBO_DIR}/json"
+            globals()["OUTPUT_CHECKPOINTS_DIR"] = f"{OUTPUT_BASE_DIR}/checkpoints"
+            globals()["OUTPUT_LOGS_DIR"] = f"{OUTPUT_BASE_DIR}/logs"
+            globals()["OUTPUT_NOTE_GEN_DIR"] = f"{OUTPUT_BASE_DIR}/note_gen"
+
+        # Provider default
+        if hasattr(module, "DEFAULT_LLM_PROVIDER"):
+            globals()["DEFAULT_LLM_PROVIDER"] = getattr(module, "DEFAULT_LLM_PROVIDER")
+
+        # Benchmark and prompts
+        if hasattr(module, "BENCHMARK_FILE_PATH"):
+            globals()["BENCHMARK_FILE_PATH"] = getattr(module, "BENCHMARK_FILE_PATH")
+        if hasattr(module, "SYSTEM_PROMPT"):
+            globals()["SYSTEM_PROMPT"] = getattr(module, "SYSTEM_PROMPT")
+        if hasattr(module, "JSON_FORMAT_INSTRUCTIONS"):
+            globals()["JSON_FORMAT_INSTRUCTIONS"] = getattr(module, "JSON_FORMAT_INSTRUCTIONS")
+        if hasattr(module, "USER_PROMPT"):
+            globals()["USER_PROMPT"] = getattr(module, "USER_PROMPT")
+    except Exception:
+        # Fail silent; caller can proceed with defaults
+        pass
+
+_load_profile_overrides()

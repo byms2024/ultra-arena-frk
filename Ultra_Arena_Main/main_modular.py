@@ -35,7 +35,7 @@ import config.config_base as config_base
 
 # Import the modular processor
 from processors.modular_parallel_processor import ModularParallelProcessor
-from run_profiles.profile_loader import apply_profile
+from config import config_base
 
 def setup_logging(verbose: bool = False):
     """Setup logging configuration."""
@@ -549,7 +549,7 @@ def main():
     parser.add_argument('--output', '-o', default='modular_results.json', 
                        help='Output file path (default: modular_results.json)')
     parser.add_argument('--profile', type=str, default=None,
-                       help='Run profile name under run_profiles/ to override input/output and optional settings')
+                       help='Run profile directory under run_profiles/ to override input/output/settings')
     
     # Strategy arguments
     parser.add_argument('--strategy', '-s', choices=[STRATEGY_DIRECT_FILE, STRATEGY_TEXT_FIRST, STRATEGY_IMAGE_FIRST, STRATEGY_HYBRID], 
@@ -595,12 +595,15 @@ def main():
     setup_logging(args.verbose)
     
     try:
-        # Apply profile if specified (overrides output dirs and optional defaults)
+        # Apply profile if specified: set config_base.PROFILE_DIR so config_base loads overrides
         if args.profile:
-            applied = apply_profile(args.profile)
-            if not args.input and 'input_dir' in applied:
-                args.input = applied['input_dir']
-            logging.info(f"👤 Applied profile: {applied}")
+            config_base.PROFILE_DIR = f"run_profiles/{args.profile}"
+            # Reload config_base to apply overrides
+            import importlib
+            importlib.reload(config_base)
+            if not args.input and getattr(config_base, 'PROFILE_INPUT_DIR', ''):
+                args.input = config_base.PROFILE_INPUT_DIR
+            logging.info(f"👤 Applied profile dir: {config_base.PROFILE_DIR}")
         # Check if combo configuration is specified
         if args.combo_config_path:
             logging.info(f"🔄 Running in combo mode with config: {args.combo_config_path}")

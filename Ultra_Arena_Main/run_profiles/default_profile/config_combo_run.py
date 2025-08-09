@@ -1,14 +1,14 @@
 from config import config_base
 from config.run_param_grps_def import param_grps
 
-DIR_MAIN_INPUT = "input_files"
+INPUT_DIR_FOR_COMBO = "input_files"
 # Single file test directory
-DIR_1_FILES = f"{DIR_MAIN_INPUT}/1_file"
-DIR_2_FILES = f"{DIR_MAIN_INPUT}/2_files"
-DIR_4_FILES = f"{DIR_MAIN_INPUT}/4_files"
-DIR_13_FILES = f"{DIR_MAIN_INPUT}/13_files"
-DIR_30_FILES = f"{DIR_MAIN_INPUT}/30_files"
-DIR_252_FILES = f"{DIR_MAIN_INPUT}/252_files"
+DIR_1_FILES = f"{INPUT_DIR_FOR_COMBO}/1_file"
+DIR_2_FILES = f"{INPUT_DIR_FOR_COMBO}/2_files"
+DIR_4_FILES = f"{INPUT_DIR_FOR_COMBO}/4_files"
+DIR_10_FILES = f"{INPUT_DIR_FOR_COMBO}/10_files"
+DIR_30_FILES = f"{INPUT_DIR_FOR_COMBO}/30_files"
+DIR_200_FILES = f"{INPUT_DIR_FOR_COMBO}/200_files"
 
 combo_config = {
     "combo1" : {
@@ -63,7 +63,7 @@ combo_config = {
         ]
     },
     "combo_test_8_strategies_13f" : {
-        "input_files" : DIR_13_FILES,
+        "input_files" : DIR_10_FILES,
         "parameter_groups" : [
             "grp_directF_google_gemini25_para",
             "grp_imageF_google_gemini25_para",
@@ -77,7 +77,7 @@ combo_config = {
         ]
     },
     "combo_test_8_strategies_252f" : {
-        "input_files" : DIR_252_FILES,
+        "input_files" : DIR_200_FILES,
         "parameter_groups" : [
             "grp_directF_google_gemini25_para",
             "grp_imageF_google_gemini25_para",
@@ -124,7 +124,7 @@ combo_config = {
         ]
     }, 
     "combo_test_google_directF_strategies_13f" : {
-        "input_files" : DIR_13_FILES,
+        "input_files" : DIR_10_FILES,
         "parameter_groups" : [
             "grp_directF_google_gemini25_para"
         ]
