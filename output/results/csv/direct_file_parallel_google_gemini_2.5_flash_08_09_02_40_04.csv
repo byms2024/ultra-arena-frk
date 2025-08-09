@@ -1,2 +1,2 @@
 file_path,file_name,group_id,success,timestamp,retry_round,file_size_mb,estimated_tokens,file_hash,modification_time,prompt_token_count,candidates_token_count,total_token_count,other_token_count,file_name_llm,DOC_TYPE,CNPJ_1,CNPJ_2,VALOR_TOTAL,Chassi,CLAIM_NUMBER,file_group_ids_incl_retries
-/Users/jameswang9311/Documents/My_Ultra/My_Ultra_Example_Call/input_files/1_file/german-sample-1.pdf,german-sample-1.pdf,1754684062_retry_1_group_0,True,2025-08-08T17:14:43.009062,,0.36,0,,,951,640,3490,1899,german-sample-1.pdf,,,,,,,
+/Users/jameswang9311/Documents/My_Ultra_Arena/Ultra_Arena_Test_Example/input_files/1_file/german-sample-1.pdf,german-sample-1.pdf,1754718004_group_0,True,2025-08-09T02:40:15.283269,,0.36,0,,,975,98,1634,561,german-sample-1.pdf,,,,,,,

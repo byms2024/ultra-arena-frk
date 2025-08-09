@@ -1,2 +1,0 @@
-file_path,file_name,group_id,success,timestamp,retry_round,file_size_mb,estimated_tokens,file_hash,modification_time,prompt_token_count,candidates_token_count,total_token_count,other_token_count,file_name_llm,DOC_TYPE,CNPJ_1,CNPJ_2,VALOR_TOTAL,Chassi,CLAIM_NUMBER,file_group_ids_incl_retries
-/Users/jameswang9311/Documents/My_Ultra/My_Ultra_Example_Call/input_files/1_file/german-sample-1.pdf,german-sample-1.pdf,1754684436_group_0,True,2025-08-08T17:21:00.149916,,0.36,0,,,951,3214,4776,611,german-sample-1.pdf,,,,,,,

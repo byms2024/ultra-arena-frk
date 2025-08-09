@@ -38,3 +38,6 @@ cursor_gen/
 # Project outputs
 Ultra_Arena_Main/output/
 Ultra_Arena_Test_Example/output/
+
+# Local secrets (do not commit)
+Ultra_Arena_Main/config/config_api_keys_local.py

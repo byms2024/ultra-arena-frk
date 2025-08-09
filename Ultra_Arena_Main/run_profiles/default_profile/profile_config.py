@@ -1,26 +1,23 @@
 # Example private profile overrides
 
 # Where your input PDFs live for this profile
-INPUT_DIR = "../input_files"
+INPUT_DIR = "./input_files"
+
+# Combo input root for combo runs
+INPUT_DIR_FOR_COMBO = INPUT_DIR
 
 # Redirect all outputs for this profile
-OUTPUT_BASE_DIR = "../output"
+OUTPUT_BASE_DIR = "./output"
 
 # Optional overrides
 DEFAULT_LLM_PROVIDER = "google"
 MAX_WORKERS = 5
 
-# Mandatory Keys Configuration (profile-scoped)
-MANDATORY_KEYS = ['']
-
-# Combo input root for combo runs
-INPUT_DIR_FOR_COMBO = "input_files"
-
 # =============================================================================
 # BENCHMARK
 # =============================================================================
 
-BENCHMARK_FILE_PATH = "benchmark_file/xxx.xlsx"
+BENCHMARK_FILE_PATH = "benchmark_file/benchmark_1.xlsx"
 
 # =============================================================================
 # PROMPTS
@@ -40,5 +37,5 @@ needs to be in json format
 USER_PROMPT = """
 """ + JSON_FORMAT_INSTRUCTIONS 
 
-# Mandatory Keys
+# Mandatory Keys Configuration (profile-scoped)
 MANDATORY_KEYS = ['']

@@ -1,0 +1,88 @@
+{
+  "run_settings": {
+    "strategy": "direct_file",
+    "mode": "parallel",
+    "llm_provider": "google",
+    "llm_model": "gemini-2.5-flash"
+  },
+  "file_stats": {
+    "/Users/jameswang9311/Documents/My_Ultra_Arena/Ultra_Arena_Test_Example/input_files/1_file/german-sample-1.pdf": {
+      "file_process_result": {
+        "success": true,
+        "retry_round": null,
+        "failure_reason": null,
+        "proc_timestamp": "2025-08-09T02:40:15.283269",
+        "group_ids_incl_retries": []
+      },
+      "file_model_output": {
+        "file_name_llm": "german-sample-1.pdf",
+        "key_information": "Invoice 123100401 for Musterkunde AG. Total: 453.53 EUR for Feb 2024 internet services.",
+        "summary": "Detailed invoice for WMACCESS Internet services, showing basic fees & transaction queries.",
+        "prompt_token_count": 975,
+        "candidates_token_count": 98,
+        "total_token_count": 1634,
+        "estimated_tokens": 1592
+      },
+      "file_info": {
+        "file_name": "german-sample-1.pdf",
+        "file_size_mb": 0.36
+      }
+    }
+  },
+  "group_stats": {
+    "1754718004_group_0": {
+      "group_index": 0,
+      "submission_time": "2025-08-09T02:40:15.283328",
+      "file_count": 1,
+      "file_name_list": [
+        "german-sample-1.pdf"
+      ],
+      "estimated_tokens": 2969,
+      "actual_tokens": 1634,
+      "group_proc_time_in_sec": 10,
+      "group_prompt_tokens": 975,
+      "group_candidate_tokens": 98,
+      "group_other_tokens": 561,
+      "group_total_tokens": 1634
+    }
+  },
+  "retry_stats": {
+    "num_files_may_need_retry": 0,
+    "num_files_had_retry": 0,
+    "percentage_files_had_retry": 0.0,
+    "num_file_failed_after_max_retries": 0,
+    "actual_tokens_for_retries": 0,
+    "retry_prompt_tokens": 0,
+    "retry_candidate_tokens": 0,
+    "retry_other_tokens": 0,
+    "retry_total_tokens": 0
+  },
+  "overall_stats": {
+    "total_files": 1,
+    "total_estimated_tokens": 2969,
+    "total_wall_time_in_sec": 11,
+    "total_group_wall_time_in_sec": 10,
+    "total_prompt_tokens": 975,
+    "total_candidate_tokens": 98,
+    "total_other_tokens": 561,
+    "average_prompt_tokens_per_file": 975,
+    "average_candidate_tokens_per_file": 98,
+    "average_other_tokens_per_file": 561,
+    "average_total_tokens_per_file": 1634,
+    "total_actual_tokens": 1634
+  },
+  "benchmark_errors": {
+    "total_unmatched_fields": 0,
+    "total_unmatched_files": 0
+  },
+  "overall_cost": {
+    "price_obtained_date": "2025-08-04",
+    "prompt_token_price_per_1M": 0.075,
+    "candidate_token_price_per_1M": 0.3,
+    "other_token_price_per_1M": 0.075,
+    "total_prompt_token_cost": 7.3e-05,
+    "total_candidate_token_cost": 2.9e-05,
+    "total_other_token_cost": 4.2e-05,
+    "total_token_cost": 0.000145
+  }
+}
