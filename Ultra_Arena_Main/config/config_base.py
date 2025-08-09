@@ -20,9 +20,8 @@ PROVIDER_HUGGINGFACE = "huggingface"
 
 PROVIDER = PROVIDER_OPENAI  # "google" or "openai"
 
-# Mandatory Keys Configuration
-MANDATORY_KEYS = ['']
-# Non-infrastrue Retries for missing mandatory keys in the response content
+# Mandatory keys are now provided by profiles (see PROFILE_DIR/profile_config.py)
+# NUM_RETRY_FOR_MANDATORY_KEYS remains here unless overridden by profile
 NUM_RETRY_FOR_MANDATORY_KEYS = 2
 
 # File Processing Configuration
@@ -216,6 +215,10 @@ def _load_profile_overrides() -> None:
         # Provider default
         if hasattr(module, "DEFAULT_LLM_PROVIDER"):
             globals()["DEFAULT_LLM_PROVIDER"] = getattr(module, "DEFAULT_LLM_PROVIDER")
+
+        # Mandatory keys (profile)
+        if hasattr(module, "MANDATORY_KEYS"):
+            globals()["MANDATORY_KEYS"] = getattr(module, "MANDATORY_KEYS")
 
         # Benchmark and prompts
         if hasattr(module, "BENCHMARK_FILE_PATH"):

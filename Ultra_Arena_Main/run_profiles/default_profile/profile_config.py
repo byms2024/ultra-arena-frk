@@ -10,6 +10,9 @@ OUTPUT_BASE_DIR = "../output"
 DEFAULT_LLM_PROVIDER = "google"
 MAX_WORKERS = 5
 
+# Mandatory Keys Configuration (profile-scoped)
+MANDATORY_KEYS = ['']
+
 # =============================================================================
 # BENCHMARK
 # =============================================================================
@@ -22,12 +25,17 @@ BENCHMARK_FILE_PATH = "benchmark_file/xxx.xlsx"
 
 # System Prompt
 SYSTEM_PROMPT = """
+extract key info and make sure the content is less than 100 characters
 """
 
 # JSON Formatting Instructions (concatenated to main prompt)
 JSON_FORMAT_INSTRUCTIONS = """
+needs to be in json format
 """
 
 # User Prompt
 USER_PROMPT = """
 """ + JSON_FORMAT_INSTRUCTIONS 
+
+# Mandatory Keys
+MANDATORY_KEYS = ['']
