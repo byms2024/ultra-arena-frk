@@ -1714,7 +1714,11 @@ class ModularParallelProcessor:
         try:
             # Load pricing data from CSV
             import pandas as pd
-            pricing_df = pd.read_csv('config/pricing/llm_prices.csv')
+            from pathlib import Path
+            # Resolve path relative to Ultra_Arena_Main/config/pricing
+            this_file = Path(__file__).resolve()
+            pricing_path = this_file.parent.parent / 'config' / 'pricing' / 'llm_prices.csv'
+            pricing_df = pd.read_csv(str(pricing_path))
             
             # Get provider and model from run_settings
             run_settings = self.structured_output.get('run_settings', {})
