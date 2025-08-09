@@ -125,7 +125,11 @@ def create_benchmark_manager(benchmark_file_path: str,
         Configured BenchmarkManager instance
     """
     if mandatory_keys is None:
-        mandatory_keys = ['DOC_TYPE', 'CNPJ_1', 'VALOR_TOTAL', 'Chassi', 'CLAIM_NUMBER']
+        try:
+            from config.config_base import MANDATORY_KEYS as _MANDATORY_KEYS
+            mandatory_keys = _MANDATORY_KEYS or []
+        except Exception:
+            mandatory_keys = []
     
     return BenchmarkManager(benchmark_file_path, mandatory_keys)
 
@@ -144,6 +148,10 @@ def create_benchmark_adapter(benchmark_file_path: str,
         Configured BenchmarkComparatorAdapter instance
     """
     if mandatory_keys is None:
-        mandatory_keys = ['DOC_TYPE', 'CNPJ_1', 'VALOR_TOTAL', 'Chassi', 'CLAIM_NUMBER']
+        try:
+            from config.config_base import MANDATORY_KEYS as _MANDATORY_KEYS
+            mandatory_keys = _MANDATORY_KEYS or []
+        except Exception:
+            mandatory_keys = []
     
     return BenchmarkComparatorAdapter(benchmark_file_path, mandatory_keys) 

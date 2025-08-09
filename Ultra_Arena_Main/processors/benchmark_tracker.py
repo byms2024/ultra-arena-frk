@@ -53,8 +53,12 @@ class BenchmarkTracker:
         if not model_output:
             return
         
-        # Get mandatory keys from config
-        mandatory_keys = ['DOC_TYPE', 'CNPJ_1', 'VALOR_TOTAL', 'Chassi', 'CLAIM_NUMBER']
+        # Get mandatory keys from active profile via config_base
+        try:
+            from config.config_base import MANDATORY_KEYS as _MANDATORY_KEYS
+            mandatory_keys = _MANDATORY_KEYS or []
+        except Exception:
+            mandatory_keys = []
         
         # Check if this is a failed file (has failure_reason in file_process_result)
         file_process_result = result.get('file_process_result', {})

@@ -10,7 +10,7 @@ try:
     from config.config_base import DEFAULT_OUTPUT_DIR, MANDATORY_KEYS
 except ImportError:
     DEFAULT_OUTPUT_DIR = "output/results/csv"
-    MANDATORY_KEYS = ['DOC_TYPE', 'CNPJ_1', 'VALOR_TOTAL', 'Chassi', 'CLAIM_NUMBER']
+    MANDATORY_KEYS = []
 
 class CSVResultDumper:
     """Handles dumping processing results to CSV files."""
