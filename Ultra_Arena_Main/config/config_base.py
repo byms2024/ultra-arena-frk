@@ -79,8 +79,6 @@ HUGGINGFACE_MODEL_ID_LLAMA_VISION_90B = "meta-llama/Llama-3.2-90B-Vision-Instruc
 HUGGINGFACE_MODEL_ID = HUGGINGFACE_MODEL_ID_QWEN2_VL_72B
 HUGGINGFACE_MODEL_TEMPERATURE = 1.0
 
-
-
 # Ollama Configuration (for local LLMs)
 LOCAL_OLLAMA_MODEL = "deepseek-r1:8b"
 LOCAL_OLLAMA_TEMPERATURE = 0.1
@@ -173,6 +171,13 @@ Profile-driven configuration
 
 from pathlib import Path
 import importlib.util
+from .config_api_keys import (
+    GCP_API_KEY as _GCP_API_KEY,
+    OPENAI_API_KEY as _OPENAI_API_KEY,
+    DEEPSEEK_API_KEY as _DEEPSEEK_API_KEY,
+    CLAUDE_API_KEY as _CLAUDE_API_KEY,
+    HUGGINGFACE_TOKEN as _HUGGINGFACE_TOKEN,
+)
 
 # Defaults (may be overridden by profile)
 BENCHMARK_FILE_PATH = ""
@@ -234,8 +239,28 @@ def _load_profile_overrides() -> None:
         # Combo input dir override
         if hasattr(module, "INPUT_DIR_FOR_COMBO"):
             globals()["INPUT_DIR_FOR_COMBO"] = getattr(module, "INPUT_DIR_FOR_COMBO")
+
+        # API keys overrides from profile if provided
+        if hasattr(module, "GCP_API_KEY"):
+            globals()["GCP_API_KEY"] = getattr(module, "GCP_API_KEY")
+        if hasattr(module, "OPENAI_API_KEY"):
+            globals()["OPENAI_API_KEY"] = getattr(module, "OPENAI_API_KEY")
+        if hasattr(module, "DEEPSEEK_API_KEY"):
+            globals()["DEEPSEEK_API_KEY"] = getattr(module, "DEEPSEEK_API_KEY")
+        if hasattr(module, "CLAUDE_API_KEY"):
+            globals()["CLAUDE_API_KEY"] = getattr(module, "CLAUDE_API_KEY")
+        if hasattr(module, "HUGGINGFACE_TOKEN"):
+            globals()["HUGGINGFACE_TOKEN"] = getattr(module, "HUGGINGFACE_TOKEN")
     except Exception:
         # Fail silent; caller can proceed with defaults
         pass
 
 _load_profile_overrides()
+
+# Apply centralized API key values after potential profile overrides initialized as defaults
+# This ensures base config uses centralized keys unless profile explicitly sets different ones.
+GCP_API_KEY = globals().get("GCP_API_KEY", _GCP_API_KEY) or _GCP_API_KEY
+OPENAI_API_KEY = globals().get("OPENAI_API_KEY", _OPENAI_API_KEY) or _OPENAI_API_KEY
+DEEPSEEK_API_KEY = globals().get("DEEPSEEK_API_KEY", _DEEPSEEK_API_KEY) or _DEEPSEEK_API_KEY
+CLAUDE_API_KEY = globals().get("CLAUDE_API_KEY", _CLAUDE_API_KEY) or _CLAUDE_API_KEY
+HUGGINGFACE_TOKEN = globals().get("HUGGINGFACE_TOKEN", _HUGGINGFACE_TOKEN) or _HUGGINGFACE_TOKEN
