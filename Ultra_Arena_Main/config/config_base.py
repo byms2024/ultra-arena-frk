@@ -180,6 +180,7 @@ SYSTEM_PROMPT = ""
 JSON_FORMAT_INSTRUCTIONS = ""
 USER_PROMPT = ""
 PROFILE_INPUT_DIR = ""
+INPUT_DIR_FOR_COMBO = ""
 
 def _load_profile_overrides() -> None:
     try:
@@ -229,6 +230,10 @@ def _load_profile_overrides() -> None:
             globals()["JSON_FORMAT_INSTRUCTIONS"] = getattr(module, "JSON_FORMAT_INSTRUCTIONS")
         if hasattr(module, "USER_PROMPT"):
             globals()["USER_PROMPT"] = getattr(module, "USER_PROMPT")
+
+        # Combo input dir override
+        if hasattr(module, "INPUT_DIR_FOR_COMBO"):
+            globals()["INPUT_DIR_FOR_COMBO"] = getattr(module, "INPUT_DIR_FOR_COMBO")
     except Exception:
         # Fail silent; caller can proceed with defaults
         pass

@@ -13,6 +13,9 @@ MAX_WORKERS = 5
 # Mandatory Keys Configuration (profile-scoped)
 MANDATORY_KEYS = ['']
 
+# Combo input root for combo runs
+INPUT_DIR_FOR_COMBO = "input_files"
+
 # =============================================================================
 # BENCHMARK
 # =============================================================================

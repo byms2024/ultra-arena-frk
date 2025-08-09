@@ -1,7 +1,7 @@
 from config import config_base
 from config.run_param_grps_def import param_grps
 
-INPUT_DIR_FOR_COMBO = "input_files"
+INPUT_DIR_FOR_COMBO = config_base.INPUT_DIR_FOR_COMBO or "input_files"
 # Single file test directory
 DIR_1_FILES = f"{INPUT_DIR_FOR_COMBO}/1_file"
 DIR_2_FILES = f"{INPUT_DIR_FOR_COMBO}/2_files"
